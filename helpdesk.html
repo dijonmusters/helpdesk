@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+  <head>
+    <title>Swinburne Programming Helpdesk</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jon Meyers" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Helpdesk CSS -->
+    <link href="css/helpdesk.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="container" data-ng-controller="mainCtrl">
+      <!-- HEADER -->
+      <div class="row">
+        <div class="col-xs-12">
+          <h1 class="text-center">Swinburne Programming Helpdesk</h1>
+            <h2 class="text-center">please add your name for assistance</h2>
+        </div>
+      </div>
+      <!-- QUEUE OF REQUESTS -->
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="col-xs-12" data-ng-show="people.length != 0">
+            <table class="table">
+              <caption class="sr-only">Students</caption>
+              <thead>
+                <tr>
+                  <th class="col-xs-3"><h3>Name</h3></th>
+                  <th class="col-xs-4"><h3>Unit</h3></th>
+                  <th class="col-xs-4"><h3>Description</h3></th>
+                  <th class="col-xs-1 text-center"><h3>Remove</h3></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="p in people">
+                  <td>{{p.name}}</td>
+                  <td>{{p.unit}}</td>
+                  <td>{{p.desc}}</td>
+                  <td class="text-center"><button data-ng-click="removePerson($index)" class="btn-danger"><span class="glyphicon glyphicon-trash"></span></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- HELP REQUEST FORM -->
+        <div class="row" data-ng-keypress="isEnter($event)">
+          <div class="col-xs-3">
+            <label class="sr-only" for="name">Name</label>
+            <input class="col-xs-12 form-control" type="text" id="name" placeholder="what is your name?" data-ng-model="pname" autofocus />
+          </div>
+          <div class="col-xs-4">
+            <label class="sr-only" for="unit">Unit</label>
+            <select data-ng-model="punit" class="form-control" id="unit">
+              <option value=''>which unit are you studying?</option>
+              <option data-ng-repeat="u in units" value="{{u}}">{{u}}</option>
+            </select>
+          </div>
+          <div class="col-xs-4">
+            <label class="sr-only" for="desc">Description</label>
+            <input class="col-xs-12 form-control" type="text" id="desc" placeholder="what do you need help with?" data-ng-model="pdesc" />
+          </div>
+          <div class="col-xs-1">
+            <button data-ng-click="addPerson()" class="btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+          </div>
+        </div>
+        <!-- ERROR PANEL -->
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="alert-danger text-center">{{error}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Load jQuery module through electron -->
+    <script>window.$ = window.jQuery = require('./js/jquery.js');</script>
+    <!-- All Bootstrap plugins file -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- AngularJS -->
+    <script src="js/angular.min.js"></script>
+    <!-- Helpdesk Angular -->
+    <script src="js/helpdesk.js"></script>
+  </body>
+</html>
